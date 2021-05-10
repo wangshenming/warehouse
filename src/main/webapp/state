@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--maven约束-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- 模型版本 -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- 本项目坐标，即创建项目的时填写的内容 -->
+  <!-- 公司或组织名称，一般是域名反写，如com.alibaba，org.springframework等 -->
+  <groupId>org.example</groupId>
+  <!-- 项目名称（id）。一个公司或组织下可以有多个项目，如org.springframework下有spring-core，spring-beans等 -->
+  <artifactId>mavenproject</artifactId>
+  <!-- 项目版本 -->
+  <version>1.0-SNAPSHOT</version>
+
+  <!-- 项目的打包方式，jar包或war包等 -->
+  <packaging>war</packaging>
+  <!-- 项目名称 -->
+  <name>mavenproject Maven Webapp</name>
+  <!-- 项目地址 -->
+  <url>http://www.example.com</url>
+
+  <!-- 定义属性,可以在其他地方通过${标签名}引用 -->
+  <properties>
+    <!--  项目编码  -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--  项目的jdk版本,这里默认的是1.7,可以手动改为你自己的jdk版本  -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <!--  以下是自定义的标签 -->
+    <!--  例如我们下面要使用spring的一些依赖，为了便于管理spring的版本，可以在这里声明
+       然后在version标签里通过${spring.version}引用 -->
+    <spring.version>5.1.10.RELEASE</spring.version>
+  </properties>
+  <!-- 项目的依赖关系，导入jar包就是在这里导入 -->
+  <dependencies>
+    <!-- <dependencies>标签下可以有多个<dependency>标签，每一个都对应一个我们要引用的jar包  -->
+    <!--  通过groupId，artifactId可以精确找到一个项目，通过version确定版本，下面以fastjson为例  -->
+    <dependency>
+      <!--   组id为阿里巴巴公司的域名反写（大部分都是这样，但也有例外，如下方的junit，就只有junit一个单词）   -->
+      <groupId>com.alibaba</groupId>
+      <!--   项目名，fastjson   -->
+      <artifactId>fastjson</artifactId>
+      <!--   我们要使用的版本   -->
+      <version>1.1.23</version>
+      <!--   作用域，不写默认为compile，说明无论编译、运行、测试、打包都会被包含进去。
+      如下面的junit，作用域为test，就只会在测试的时候被需要，其他还有provided、runtime、system
+      详情请参考—— https://www.cnblogs.com/kingsonfu/p/10342892.html -->
+      <scope>compile</scope>
+    </dependency>
+    <!--  我们在<properties>标签里声明了spring的版本，那么在<version>里就可以直接引用，以后直接修改spring.version即可  -->
+    <!--  spring-webmvc相关依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--  spring事务依赖  -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <!-- 构建项目需要的信息 -->
+  <build>
+    <finalName>mavenproject</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+————————————————
+版权声明：本文为CSDN博主「丷叶子丷」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_42216984/article/details/107865421
